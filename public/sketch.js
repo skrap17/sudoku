@@ -45,7 +45,8 @@ function draw() {
   //background(220);
   //image(bg, -bg.width + width, -bg.height + height, width, height);
   //image(bg, 0, 0, width, height, (bg.width - width) * 0.5, (bg.height - height) * 0.5, width, height);
-  image(bg, 0, 0, width, height);
+  //image(bg, 0, 0, width, height);
+  image(bg, -(bg.width - width) * 0.5, -(bg.height - height) * 0.5);
   pen();
   for (let i in nums)
     nums[i].show();
