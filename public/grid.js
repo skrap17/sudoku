@@ -15,8 +15,10 @@ function grid() {
       this.cells[c].show();
     strokeWeight(3);
     for (let i = 0; i <= 3; i++) {
-      line(i * 3 * w, w, i * 3 * w, height - w);
-      line(0, i * 3 * w + w, width, i * 3 * w + w);
+      // line(i * 3 * w, w, i * 3 * w, height - w);
+      // line(0, i * 3 * w + w, width, i * 3 * w + w);
+      image(horiz, 0, i * 3 * w - 2 + w, width, 4);
+      image(vert, i * 3 * w - 2, w, 4, height - 2 * w);
     }
   }
 
@@ -200,7 +202,7 @@ function grid() {
     if (this.cell(i, j).n != undefined){
     let a = this.cell(i, j).sure;
     if (a == 255)
-      this.cell(i, j).sure = 100;
+      this.cell(i, j).sure = 80;
     else
       this.cell(i, j).sure = 255;
     }
