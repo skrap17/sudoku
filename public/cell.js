@@ -12,7 +12,7 @@ function cell(i, j){
     strokeWeight(1);
     stroke(0);
     if (!this.highlighted)
-      fill(255);
+      noFill();
     else{
       fill(230);
     }
