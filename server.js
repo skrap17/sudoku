@@ -44,7 +44,8 @@ bot.on("callback_query", function (query) {
        
        queries[query.id] = query;
 
-       let gameurl = "https://sudoku.slavko587.now.sh/public/index.html?id="+query.id;
+       //let gameurl = "https://sudoku.slavko587.now.sh/public/index.html?id="+query.id;
+       let gameurl = "https://telegramsudoku.herokuapp.com/?id="+query.id;
        
        console.log(gameurl);
 
