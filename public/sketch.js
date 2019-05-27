@@ -8,7 +8,16 @@ let nums = [];
 let curnum = 0;
 let pencil = false;
 let penimg;
+let bg;
+let vert;
+let horiz;
 
+function preload(){
+   penimg = loadImage("pencil.png");
+  bg = loadImage("background.jpg");
+  vert = loadImage("vertical_line.png");
+  horiz = loadImage("gorizontal_line.png");
+}
 
 function setup() {
   let d = dims();
@@ -17,7 +26,6 @@ function setup() {
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
-  penimg = loadImage("pencil.png")
   sudoku = new grid();
   sudoku.fill();
 
@@ -27,17 +35,20 @@ function setup() {
     nums[i].changeble = true;
     nums[i].col = color(100, 50, 200);
   }
-
+  
   noLoop();
+  redraw();
 }
 
 function draw() {
-  background(220);
+  
+  //background(220);
+  //image(bg, -bg.width + width, -bg.height + height, width, height);
+  image(bg, 0, 0, width, height, (bg.width - width) * 0.5, (bg.height - height) * 0.5, width, height);
   pen();
   for (let i in nums)
     nums[i].show();
   sudoku.show();
-
 }
 
 function mousePressed() {
