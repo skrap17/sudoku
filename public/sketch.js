@@ -13,8 +13,12 @@ let vert;
 let horiz;
 
 function preload(){
-   penimg = loadImage("pencil.png");
+  penimg = loadImage("pencil.png");
   bg = loadImage("background.jpg");
+  if (height > bg.height){
+     let w = height * bg.width / bg.height;
+     bg.resize(w, height);
+  }
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
 }
@@ -46,7 +50,7 @@ function draw() {
   //image(bg, -bg.width + width, -bg.height + height, width, height);
   //image(bg, 0, 0, width, height, (bg.width - width) * 0.5, (bg.height - height) * 0.5, width, height);
   //image(bg, 0, 0, width, height);
-  image(bg, -(bg.width - width) * 0.5, -(bg.height - height) * 0.5 - w);
+  image(bg, -(bg.width - width) * 0.5, -(bg.height - height) * 0.5);
   pen();
   for (let i in nums)
     nums[i].show();
