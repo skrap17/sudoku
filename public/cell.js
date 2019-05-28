@@ -14,7 +14,7 @@ function cell(i, j){
     if (!this.highlighted)
       noFill();
     else{
-      fill(230, 125);
+      fill(247, 247, 22, 140);
     }
    
     rect(this.i * w, this.j * w + w, w, w);
