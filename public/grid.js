@@ -93,6 +93,7 @@ function grid() {
       this.cells[c].n = undefined;
       this.cells[c].changeble = false;
       this.cells[c].highlighted = false;
+      this.cells[c].corrupted = false;
     }
     this.fillMiddle();
     this.fillOther(0, 3);
