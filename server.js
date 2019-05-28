@@ -29,7 +29,7 @@ console.log('starting');
 
 
 
-bot.onText(/help/, (msg) => bot.sendMessage(msg.from.id, "This bot implements a ыгвщлг game. Say /game if you want to play."));
+bot.onText(/help/, (msg) => bot.sendMessage(msg.from.id, "This bot implements a sudoku game. Say /game if you want to play."));
 
 bot.onText(/start|game/, (msg) => bot.sendGame(msg.from.id, gameName));
 
