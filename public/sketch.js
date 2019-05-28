@@ -12,16 +12,17 @@ let bg;
 let vert;
 let horiz;
 
+
 function preload(){
   penimg = loadImage("pencil.png");
-  bg = loadImage("just-waves.png");
+  bg = loadImage("bg.png");
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
 }
 
 function setup() {
   let d = dims();
-  let cnv = createCanvas(d[0], d[1]);
+  cnv = createCanvas(d[0], d[1]);
   cnv.style('display', 'block');
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
@@ -33,7 +34,7 @@ function setup() {
     nums.push(new cell(i, 9));
     nums[i].n = i + 1;
     nums[i].changeble = true;
-    nums[i].col = color(100, 50, 200);
+    nums[i].col = color(168, 228, 255);
   }
   
   noLoop();
@@ -41,12 +42,7 @@ function setup() {
 }
 
 function draw() {
-  
-  //background(220);
-  //image(bg, -bg.width + width, -bg.height + height, width, height);
-  //image(bg, 0, 0, width, height, (bg.width - width) * 0.5, (bg.height - height) * 0.5, width, height);
   image(bg, 0, 0, width, height);
-  //image(bg, -(bg.width - width) * 0.5, -(bg.height - height) * 0.5);
   pen();
   for (let i in nums)
     nums[i].show();
@@ -55,7 +51,7 @@ function draw() {
 
 function mousePressed() {
   let i = int(mouseX / w);
-  if (mouseY <= height - w - 1 && mouseY >= w + 1 && mouseX <= width - 1 && game) {
+  if (mouseY <= height - w - 1 && mouseY >= w + 1 && mouseX <= width - 1 && mouseX >= 1 && game) {
     let j = int(mouseY / w) - 1;
     if (sudoku.cell(i, j).changeble) {
       start = true;
@@ -63,7 +59,7 @@ function mousePressed() {
       sudoku.high(i, j);
       curr = [i, j];
     }
-  } else if (mouseY > height - w - 1 && mouseY <= height && game) {
+  } else if (mouseY > height - w - 1 && mouseY <= height && mouseX <= width - 1 && mouseX >= 1 && game) {
     nums[i].highlighted = true;
     curnum = i;
     if (start) {
@@ -101,6 +97,7 @@ function doubleClicked() {
 
 function keyPressed() {
   if (key == ' ') {
+    //sudoku.cell(curr[0], curr[1]).highlighted = false;
     sudoku.fill();
     start = false;
     game = true;
@@ -183,10 +180,9 @@ function win() {
 }
 
 function pen() {
-  //fill(255);
   noFill();
   if (pencil)
-    fill(230, 100);
+    fill(247, 247, 22, 140);
   noStroke();
   rect(7 * w, 0, w, w);
   image(penimg, 7 * w, 0, w - 2, w - 2);
