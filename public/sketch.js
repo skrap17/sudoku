@@ -189,8 +189,9 @@ function win() {
 
 function pen() {
   //fill(255);
+  noFill();
   if (pencil)
-    fill(255);
+    fill(230, 100);
   noStroke();
   rect(7 * w, 0, w, w);
   image(penimg, 7 * w, 0, w - 2, w - 2);
