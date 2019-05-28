@@ -14,6 +14,11 @@ const port = process.env.PORT || 5000;
 console.log(port);
 server.listen(port);
 
+var http = require("http");
+setInterval(function() {
+    http.get("http://telegramsudoku.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
+
 const gameName = "sudoku";
 
 const queries = {};
