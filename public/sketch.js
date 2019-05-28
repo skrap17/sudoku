@@ -15,10 +15,6 @@ let horiz;
 function preload(){
   penimg = loadImage("pencil.png");
   bg = loadImage("background.jpg");
-  if (height > bg.height){
-     let w = height * bg.width / bg.height;
-     bg.resize(w, height);
-  }
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
 }
@@ -105,7 +101,6 @@ function doubleClicked() {
 
 function keyPressed() {
   if (key == ' ') {
-    sudoku.cell(curr[0], curr[1]).highlighted = false;
     sudoku.fill();
     start = false;
     game = true;
