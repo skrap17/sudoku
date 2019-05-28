@@ -29,10 +29,10 @@ console.log('starting');
 
 
 
-//bot.onText(/help/, (msg) => bot.sendMessage(msg.from.id, "This bot implements a T-Rex jumping game. Say /game if you want to play."));
-//
-//bot.onText(/start|game/, (msg) => bot.sendGame(msg.from.id, gameName));
-//
+bot.onText(/help/, (msg) => bot.sendMessage(msg.from.id, "This bot implements a ыгвщлг game. Say /game if you want to play."));
+
+bot.onText(/start|game/, (msg) => bot.sendGame(msg.from.id, gameName));
+
 bot.on("callback_query", function (query) {
 
        if (query.game_short_name !== gameName) {
@@ -62,8 +62,8 @@ bot.on("callback_query", function (query) {
 
        });
 
-//bot.on("inline_query", function(iq) {
-//
-//       bot.answerInlineQuery(iq.id, [ { type: "game", id: "0", game_short_name: gameName } ] );
-//
-//       });
+bot.on("inline_query", function(iq) {
+
+      bot.answerInlineQuery(iq.id, [ { type: "game", id: "0", game_short_name: gameName } ] );
+
+      });
