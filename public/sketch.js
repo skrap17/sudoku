@@ -14,7 +14,7 @@ let horiz;
 
 function preload(){
   penimg = loadImage("pencil.png");
-  bg = loadImage("dark-paths.png");
+  bg = loadImage("just-waves.png");
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
 }
