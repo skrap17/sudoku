@@ -15,7 +15,7 @@ let xoff, yoff;
 
 function preload(){
   penimg = loadImage("pencil.png");
-  bg = loadImage("background.png");
+  bg = loadImage("bg.png");
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
 }
