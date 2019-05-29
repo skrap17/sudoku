@@ -6,27 +6,27 @@ let start = false;
 let game = true;
 let nums = [];
 let curnum = 0;
-let pencil = false;
 let penimg;
 let bg;
 let vert;
 let horiz;
-
+let penbttn;
+let xoff, yoff;
 
 function preload(){
   penimg = loadImage("pencil.png");
-  bg = loadImage("bg.png");
+  bg = loadImage("background.png");
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
 }
 
 function setup() {
-  let d = dims();
-  cnv = createCanvas(d[0], d[1]);
+  d = dims();
+  xoff = abs(windowWidth - d[0]) * 0.5;
+  yoff = abs(windowHeight - d[1] ) * 0.5;
+  cnv = createCanvas(windowWidth, windowHeight);
   cnv.style('display', 'block');
-  var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  cnv.position(x, y);
+  cnv.position(0, 0);
   sudoku = new grid();
   sudoku.fill();
 
@@ -37,50 +37,58 @@ function setup() {
     nums[i].col = color(168, 228, 255);
   }
   
+  penbttn = new button(7 * w, 0, penimg, pencil);
+  
   noLoop();
   redraw();
 }
 
 function draw() {
-  image(bg, 0, 0, width, height);
-  pen();
+  //image(bg, 0, 0, width, height, (bg.width - width) * 0.5, (bg.height - height) * 0.5, width, height);
+  //background(bg);
+  imageMode(CENTER);
+  image(bg, width / 2, height / 2);
+  penbttn.show();
   for (let i in nums)
     nums[i].show();
   sudoku.show();
 }
 
 function mousePressed() {
-  let i = int(mouseX / w);
+  penbttn.press();
+  let i = int((mouseX - xoff) / w);
   if (mouseY <= height - w - 1 && mouseY >= w + 1 && mouseX <= width - 1 && mouseX >= 1 && game) {
-    let j = int(mouseY / w) - 1;
+    let j = int((mouseY - yoff) / w) - 1;
     if (sudoku.cell(i, j).changeble) {
       start = true;
       sudoku.cell(curr[0], curr[1]).highlighted = false;
+      sudoku.unhight(curr[0], curr[1]);
+      sudoku.cell(curr[0], curr[1]).main = 80;
       sudoku.high(i, j);
+      sudoku.cell(i, j).main = 140;
+      sudoku.lookAtAll(i, j);
       curr = [i, j];
     }
   } else if (mouseY > height - w - 1 && mouseY <= height && mouseX <= width - 1 && mouseX >= 1 && game) {
     nums[i].highlighted = true;
     curnum = i;
     if (start) {
+      sudoku.unhight(curr[0], curr[1]);
       sudoku.set(curr[0], curr[1], nums[i].n);
+      sudoku.lookAtAll(curr[0], curr[1]);
       sudoku.corruption();
       if (sudoku.solved())
         win();
     }
-  } else if (i == 7 && mouseY > 0 && mouseY < w && game) {
-    pencil = true;
-    if (start)
-      sudoku.alfa(curr[0], curr[1]);
   }
   redraw();
 }
 
 function mouseReleased() {
+  penbttn.unpress();
   if (game) {
     sudoku.corruption();
     nums[curnum].highlighted = false;
-    pencil = false;
   }
   redraw();
 }
@@ -97,7 +105,6 @@ function doubleClicked() {
 
 function keyPressed() {
   if (key == ' ') {
-    //sudoku.cell(curr[0], curr[1]).highlighted = false;
     sudoku.fill();
     start = false;
     game = true;
@@ -145,7 +152,6 @@ function inArr(n, arr) {
 
 function goodArr(arr) {
   let found = [false, false, false, false, false, false, false, false, false];
-  //console.log[arr];
   for (let i = 1; i < 10; i++) {
     for (let j = 0; j < arr.length; j++) {
       if (arr[j] == i && !found[i - 1])
@@ -179,14 +185,6 @@ function win() {
     }
 }
 
-function pen() {
-  noFill();
-  if (pencil)
-    fill(247, 247, 22, 140);
-  noStroke();
-  rect(7 * w, 0, w, w);
-  image(penimg, 7 * w, 0, w - 2, w - 2);
-}
 
 function dims(){
   let wid;
@@ -202,4 +200,9 @@ function dims(){
     hei = w * 11;
   }
   return [wid, hei];
+}
+
+function pencil(){
+  if (start)
+        sudoku.alfa(curr[0], curr[1]);
 }

@@ -7,6 +7,7 @@ function cell(i, j){
   this.col = 0;
   this.corrupted = false;
   this.sure = 255;
+  this.main = 80;
   
   this.show = function(){
     strokeWeight(1);
@@ -14,10 +15,10 @@ function cell(i, j){
     if (!this.highlighted)
       noFill();
     else{
-      fill(247, 247, 22, 140);
+      fill(247, 247, 22, this.main);
     }
    
-    rect(this.i * w, this.j * w + w, w, w);
+    rect(this.i * w + xoff, this.j * w + w + yoff, w, w);
     textSize(w / 2);
     textAlign(CENTER, CENTER);
     if (!this.changeble)
@@ -26,6 +27,6 @@ function cell(i, j){
       fill(this.col, this.sure);
     if (this.corrupted)
       fill(255, 0, 0, this.sure);
-    text(this.n, this.i * w + 0.0625 * w, this.j * w + 1.0625 * w, w, w);
+    text(this.n, this.i * w + 0.0625 * w + xoff, this.j * w + 1.0625 * w + yoff, w, w);
   }
 }

@@ -14,11 +14,17 @@ function grid() {
     for (let c in this.cells)
       this.cells[c].show();
     strokeWeight(3);
+    imageMode(CORNER);
     for (let i = 0; i <= 3; i++) {
-      // line(i * 3 * w, w, i * 3 * w, height - w);
-      // line(0, i * 3 * w + w, width, i * 3 * w + w);
-      image(horiz, 0, i * 3 * w - 2 + w, width, 4);
-      image(vert, i * 3 * w - 2, w, 4, height - 2 * w);
+      let of1 = 0, of3 = 0;
+      if (xoff == 0){
+        if (i ==0)
+          of1 = 2;
+        if (i == 3)
+          of3 = 2;
+      }
+      image(horiz, xoff - 2, i * 3 * w - 2 + w + yoff, width - 2 * xoff + 4, 4);
+      image(vert, i * 3 * w - 2 + xoff - of3, w - 2 + yoff, 4 + of1, height - 2 * w - 2 * yoff + 4);
     }
   }
 
@@ -206,6 +212,30 @@ function grid() {
       this.cell(i, j).sure = 80;
     else
       this.cell(i, j).sure = 255;
+    }
+  }
+  
+  this.lookAtAll = function(x, y){
+    if (this.cell(x, y).n != undefined){
+      let n = this.cell(x, y).n;
+      for (let i = 0; i < 9; i++){
+        for (let j = 0; j < 9; j++){
+          if (this.cell(i, j).n == n)
+            this.cell(i, j).highlighted = true;
+        }
+      }
+    }
+  }
+  
+  this.unhight = function(x, y){
+    if (this.cell(x, y).n != undefined){
+      let n = this.cell(x, y).n;
+      for (let i = 0; i < 9; i++){
+        for (let j = 0; j < 9; j++){
+          if (this.cell(i, j).n == n)
+            this.cell(i, j).highlighted = false;
+        }
+      }
     }
   }
 }
