@@ -44,8 +44,6 @@ function setup() {
 }
 
 function draw() {
-  //image(bg, 0, 0, width, height, (bg.width - width) * 0.5, (bg.height - height) * 0.5, width, height);
-  //background(bg);
   imageMode(CENTER);
   image(bg, width / 2, height / 2);
   penbttn.show();
@@ -57,7 +55,7 @@ function draw() {
 function mousePressed() {
   penbttn.press();
   let i = int((mouseX - xoff) / w);
-  if (mouseY <= height - w - 1 && mouseY >= w + 1 && mouseX <= width - 1 && mouseX >= 1 && game) {
+  if (mouseY <= height - w - 1 - yoff && mouseY >= w + 1 + yoff && mouseX <= width - 1 - xoff && mouseX >= 1 + xoff && game) {
     let j = int((mouseY - yoff) / w) - 1;
     if (sudoku.cell(i, j).changeble) {
       start = true;
@@ -69,7 +67,7 @@ function mousePressed() {
       sudoku.lookAtAll(i, j);
       curr = [i, j];
     }
-  } else if (mouseY > height - w - 1 && mouseY <= height && mouseX <= width - 1 && mouseX >= 1 && game) {
+  } else if (mouseY > height - w - 1 - yoff && mouseY <= height - yoff && mouseX <= width - 1 - xoff && mouseX >= 1 + xoff && game) {
     nums[i].highlighted = true;
     curnum = i;
     if (start) {
