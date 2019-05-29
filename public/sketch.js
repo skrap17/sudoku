@@ -10,7 +10,7 @@ let penimg;
 let bg;
 let vert;
 let horiz;
-let penbttn;
+let penbttn; 
 let xoff, yoff;
 
 function preload(){
