@@ -3,7 +3,7 @@
 
 let w = 50;
 let K =  40;
-let sudoku;
+let sudoku; 
 let curr = [0, 0];
 let start = false;
 let game = true;
