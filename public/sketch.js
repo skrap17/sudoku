@@ -243,6 +243,7 @@ function erase() {
   if (start) {
     sudoku.unhight(curr[0], curr[1]);
     sudoku.set(curr[0], curr[1], undefined);
+    sudoku.cell(curr[0], curr[1]).sure = 255;
   }
 }
 
@@ -250,8 +251,10 @@ function reset() {
   if (start) {
     sudoku.unhight(curr[0], curr[1]);
     for (let i = 0; i < sudoku.cells.length; i++)
-      if (sudoku.cells[i].changeble)
+      if (sudoku.cells[i].changeble){
         sudoku.cells[i].n = undefined;
+        sudoku.cells[i].sure = 255;
+      }
   }
 }
 
