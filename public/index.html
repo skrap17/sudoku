@@ -8,7 +8,36 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
   </head>
+  <canvas id = "cnv"></canvas>
   <body>
+     <button class="button" id="b1" onclick="startGame()">Start</button>
+        <script>
+      window.onload = function(){
+        init();
+        //window.addEventListener("resize", init, false);
+      }
+      function init(){
+        var canvas = document.getElementById("cnv");
+        var ctx = canvas.getContext("2d");
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        cnv.width = w;
+        cnv.height = h;
+        var img = new Image();
+        img.addEventListener('load', function() {
+          ctx.drawImage(img, 0, 0);
+        }, false);
+        img.src = "background.png";
+      }
+      var ingame = false;
+      function startGame(){
+        ingame = true;
+        var x = document.getElementById("b1");
+        x.style.display = "none";
+        redraw();
+      }
+    </script>
+    
     <script src="sketch.js"></script>
     <script src="grid.js"></script>
     <script src="cell.js"></script>
