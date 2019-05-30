@@ -40,7 +40,7 @@ function setup() {
     nums.push(new cell(i, 9));
     nums[i].n = i + 1;
     nums[i].changeble = true;
-    nums[i].col = color(100);
+    nums[i].col = color(204, 56, 52);
     nums[i].st = 4;
   }
   
