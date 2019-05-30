@@ -1,5 +1,5 @@
 let w = 50;
-let K = 40;
+let K =  40;
 let sudoku;
 let curr = [0, 0];
 let start = false;
@@ -7,14 +7,20 @@ let game = true;
 let nums = [];
 let curnum = 0;
 let penimg;
-let bg;
+let bg, field;
 let vert;
 let horiz;
-let penbttn; 
+let penbttn, erbttn, rebttn;
 let xoff, yoff;
+let erimg;
+let reimg;
+let h = 0, m = 0, s = 0;
 
 function preload(){
   penimg = loadImage("pencil.png");
+  field = loadImage("bg.png");
+  erimg = loadImage("eraser.png");
+  reimg = loadImage("restart.png");
   bg = loadImage("background.png");
   vert = loadImage("vertical_line.png");
   horiz = loadImage("gorizontal_line.png");
@@ -34,10 +40,15 @@ function setup() {
     nums.push(new cell(i, 9));
     nums[i].n = i + 1;
     nums[i].changeble = true;
-    nums[i].col = color(168, 228, 255);
+    nums[i].col = color(100);
+    nums[i].st = 4;
   }
   
   penbttn = new button(7 * w, 0, penimg, pencil);
+  erbttn = new button(8 * w, 0, erimg, erase);
+  rebttn = new button(6 * w, 0, reimg, reset);
+  
+  setInterval(timeIt, 1000);
   
   noLoop();
   redraw();
@@ -46,7 +57,11 @@ function setup() {
 function draw() {
   imageMode(CENTER);
   image(bg, width / 2, height / 2);
+  image(field, width / 2, height / 2, (width - 2 * xoff), (height - 2 * yoff) - 2 * w);
+  showTime()
   penbttn.show();
+  erbttn.show();
+  rebttn.show();
   for (let i in nums)
     nums[i].show();
   sudoku.show();
@@ -54,6 +69,8 @@ function draw() {
 
 function mousePressed() {
   penbttn.press();
+  erbttn.press();
+  rebttn.press();
   let i = int((mouseX - xoff) / w);
   if (mouseY <= height - w - 1 - yoff && mouseY >= w + 1 + yoff && mouseX <= width - 1 - xoff && mouseX >= 1 + xoff && game) {
     let j = int((mouseY - yoff) / w) - 1;
@@ -84,6 +101,8 @@ function mousePressed() {
 
 function mouseReleased() {
   penbttn.unpress();
+  erbttn.unpress();
+  rebttn.unpress();
   if (game) {
     sudoku.corruption();
     nums[curnum].highlighted = false;
@@ -108,6 +127,8 @@ function keyPressed() {
     game = true;
     curr = [0, 0];
   } else if (game) {
+    sudoku.unhight(curr[0], curr[1]);
+    sudoku.cell(curr[0], curr[1]).main = 80;
     if (key == '1')
       sudoku.set(curr[0], curr[1], 1);
     else if (key == '2')
@@ -127,6 +148,7 @@ function keyPressed() {
     else if (key == '9')
       sudoku.set(curr[0], curr[1], 9);
     sudoku.corruption();
+    sudoku.lookAtAll(curr[0], curr[1]);
     if (sudoku.solved())
       win();
   }
@@ -203,4 +225,44 @@ function dims(){
 function pencil(){
   if (start)
         sudoku.alfa(curr[0], curr[1]);
+}
+
+function erase(){
+   if (start){
+     sudoku.unhight(curr[0], curr[1]);
+     sudoku.set(curr[0], curr[1], undefined);
+   }
+}
+
+function reset(){
+  if (start){
+    sudoku.unhight(curr[0], curr[1]);
+    for (let i = 0; i < sudoku.cells.length; i++)
+      if (sudoku.cells[i].changeble)
+        sudoku.cells[i].n = undefined;
+  }
+}
+
+function timeIt(){
+  if (start){
+    s++;
+    if (s == 60){
+      s = 0;
+      m++;
+      if (m == 60){
+        m = 0;
+        h++;
+      }
+    }
+    redraw();
+  }
+}
+
+function showTime(){
+  textSize(w / 2);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  let st ="";
+  st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
+  text(st, xoff, yoff, 3 * w, w);
 }
