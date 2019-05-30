@@ -1,3 +1,17 @@
+var url = new URL(location.href);
+
+var playerid = url.searchParams.get("id");
+// Submit highscore to Telegram
+
+var xmlhttp = new XMLHttpRequest();
+
+var url = "https://telegramsudoku.herokuapp.com/highscore/" + time()  + "?id=" + playerid;
+
+xmlhttp.open("GET", url, true);
+
+xmlhttp.send();
+
+
 let w = 50;
 let K =  40;
 let sudoku;
@@ -265,4 +279,10 @@ function showTime(){
   let st ="";
   st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
   text(st, xoff, yoff, 3 * w, w);
+}
+
+function time(){
+   let st ="";
+  st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
+  return st;
 }
