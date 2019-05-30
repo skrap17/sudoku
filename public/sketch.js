@@ -1,15 +1,4 @@
-var url = new URL(location.href);
 
-var playerid = url.searchParams.get("id");
-// Submit highscore to Telegram
-
-var xmlhttp = new XMLHttpRequest();
-
-var url = "https://telegramsudoku.herokuapp.com/highscore/" + time()  + "?id=" + playerid;
-
-xmlhttp.open("GET", url, true);
-
-xmlhttp.send();
 
 
 let w = 50;
