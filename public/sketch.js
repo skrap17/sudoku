@@ -1,9 +1,6 @@
-
-
-
-let w = 50;
+let w;
 let K =  40;
-let sudoku; 
+let sudoku;
 let curr = [0, 0];
 let start = false;
 let game = true;
@@ -11,8 +8,8 @@ let nums = [];
 let curnum = 0;
 let penimg;
 let bg, field;
-let vert;
-let horiz;
+// let vert;
+// let horiz;
 let penbttn, erbttn, rebttn;
 let xoff, yoff;
 let erimg;
@@ -25,8 +22,8 @@ function preload(){
   erimg = loadImage("eraser.png");
   reimg = loadImage("restart.png");
   bg = loadImage("background.png");
-  vert = loadImage("vertical_line.png");
-  horiz = loadImage("gorizontal_line.png");
+  // vert = loadImage("vertical_line.png");
+  // horiz = loadImage("gorizontal_line.png");
 }
 
 function setup() {
@@ -43,7 +40,7 @@ function setup() {
     nums.push(new cell(i, 9));
     nums[i].n = i + 1;
     nums[i].changeble = true;
-    nums[i].col = color(204, 56, 52);
+    nums[i].col = color(100);
     nums[i].st = 4;
   }
   
@@ -263,6 +260,8 @@ function timeIt(){
 
 function showTime(){
   textSize(w / 2);
+  stroke(0);
+  strokeWeight(1);
   textAlign(CENTER, CENTER);
   fill(0);
   let st ="";
@@ -270,8 +269,13 @@ function showTime(){
   text(st, xoff, yoff, 3 * w, w);
 }
 
-function time(){
-   let st ="";
-  st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
-  return st;
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  d = dims();
+  xoff = abs(windowWidth - d[0]) * 0.5;
+  yoff = abs(windowHeight - d[1] ) * 0.5;
+  penbttn.pos(7 * w, 0);
+  erbttn.pos(8 * w, 0);
+  rebttn.pos(6 * w, 0);
+  redraw();
 }
