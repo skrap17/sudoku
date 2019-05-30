@@ -16,15 +16,26 @@ function grid() {
     strokeWeight(3);
     imageMode(CORNER);
     for (let i = 0; i <= 3; i++) {
-      let of1 = 0, of3 = 0;
-      if (xoff == 0){
-        if (i ==0)
-          of1 = 2;
-        if (i == 3)
-          of3 = 2;
+      // let of1 = 0, of3 = 0;
+      // if (xoff == 0){
+      //   if (i ==0)
+      //     of1 = 2;
+      //   if (i == 3)
+      //     of3 = 2;
+      // }
+      //image(horiz, xoff - 2, i * 3 * w - 2 + w + yoff, width - 2 * xoff + 4, 4);
+      //image(vert, i * 3 * w - 2 + xoff - of3, w - 2 + yoff, 4 + of1, height - 2 * w - 2 * yoff + 4);
+      let stw = 4;
+      let off = 0;
+      stroke(204, 56, 52);
+      if (xoff == 0 && i % 3 == 0){
+        off = 2;
+        stw = 8;
       }
-      image(horiz, xoff - 2, i * 3 * w - 2 + w + yoff, width - 2 * xoff + 4, 4);
-      image(vert, i * 3 * w - 2 + xoff - of3, w - 2 + yoff, 4 + of1, height - 2 * w - 2 * yoff + 4);
+      strokeWeight(4);
+      line(xoff, i * 3 * w + w + yoff, xoff + width - 2 * xoff,  i * 3 * w + w + yoff);
+      strokeWeight(stw);
+      line(i * 3 * w + xoff, w + yoff + off,  i * 3 * w + xoff, height - 2 * w - 2 * yoff + w + yoff - off);
     }
   }
 
