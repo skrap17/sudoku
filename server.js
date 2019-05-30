@@ -12,7 +12,7 @@ const bot = new TelegramBot(TOKEN, { polling: true } );
 
 const port = process.env.PORT || 5000;
 console.log(port);
-server.listen(port);
+
 
 var http = require("http");
 setInterval(function() {
@@ -68,36 +68,5 @@ bot.on("inline_query", function(iq) {
 
       });
 
-server.get("/highscore/:score", function(req, res, next) {
 
-  if (!Object.hasOwnProperty.call(queries, req.query.id)) return   next();
-
-  let query = queries[req.query.id];
-
-  let options;
-
-  if (query.message) {
-
-    options = {
-
-      chat_id: query.message.chat.id,
-
-      message_id: query.message.message_id
-
-    };
-
-  } else {
-
-    options = {
-
-      inline_message_id: query.inline_message_id
-
-    };
-
-  }
-
-  bot.setGameScore(query.from.id, parseInt(req.params.score),  options,
-
-  function (err, result) {});
-
-});
+server.listen(port);
