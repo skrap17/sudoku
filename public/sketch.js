@@ -1,5 +1,5 @@
 let w;
-let K =  40;
+let K =  2;
 let sudoku;
 let curr = [0, 0];
 let start = false;
@@ -14,7 +14,7 @@ let penbttn, erbttn, rebttn;
 let xoff, yoff;
 let erimg;
 let reimg;
-let h = 0, m = 0, s = 0;
+let s = 0;
 
 function preload(){
   penimg = loadImage("pencil.png");
@@ -40,7 +40,7 @@ function setup() {
     nums.push(new cell(i, 9));
     nums[i].n = i + 1;
     nums[i].changeble = true;
-    nums[i].col = color(100);
+    nums[i].col = color(206, 54, 52);
     nums[i].st = 4;
   }
   
@@ -105,8 +105,8 @@ function mouseReleased() {
   rebttn.unpress();
   if (game) {
     sudoku.corruption();
-    nums[curnum].highlighted = false;
   }
+  nums[curnum].highlighted = false;
   redraw();
 }
 
@@ -230,6 +230,7 @@ function pencil(){
 function erase(){
    if (start){
      sudoku.unhight(curr[0], curr[1]);
+     sudoku.cell(curr[0], curr[1]).sure = 255;
      sudoku.set(curr[0], curr[1], undefined);
    }
 }
@@ -237,23 +238,18 @@ function erase(){
 function reset(){
   if (start){
     sudoku.unhight(curr[0], curr[1]);
-    for (let i = 0; i < sudoku.cells.length; i++)
-      if (sudoku.cells[i].changeble)
+    for (let i = 0; i < sudoku.cells.length; i++){
+      if (sudoku.cells[i].changeble){
         sudoku.cells[i].n = undefined;
+        sudoku.cells[i].sure = 255;
+      }
+    }
   }
 }
 
 function timeIt(){
   if (start){
     s++;
-    if (s == 60){
-      s = 0;
-      m++;
-      if (m == 60){
-        m = 0;
-        h++;
-      }
-    }
     redraw();
   }
 }
@@ -265,7 +261,7 @@ function showTime(){
   textAlign(CENTER, CENTER);
   fill(0);
   let st ="";
-  st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
+  st = str(numeral(int(s / 3600)).format('00')) + " : " + str(numeral(int(s / 60)).format('00')) + " : " + str(numeral(s % 60).format('00'));
   text(st, xoff, yoff, 3 * w, w);
 }
 
@@ -278,4 +274,8 @@ function windowResized() {
   erbttn.pos(8 * w, 0);
   rebttn.pos(6 * w, 0);
   redraw();
+}
+
+function deviceTurned() {
+  windowResized();
 }
