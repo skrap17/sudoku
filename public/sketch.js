@@ -5,7 +5,7 @@ let curr = [0, 0];
 let start = false;
 let game = true;
 let nums = [];
-let curnum = 0;
+let curnum = 0; 
 let penimg;
 let bg, field;
 // let vert;
