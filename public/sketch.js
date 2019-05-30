@@ -1,20 +1,20 @@
-let w;
-let K =  2;
+let w = 50;
+let K =  40;
 let sudoku;
 let curr = [0, 0];
 let start = false;
 let game = true;
 let nums = [];
-let curnum = 0; 
+let curnum = 0;
 let penimg;
 let bg, field;
-// let vert;
-// let horiz;
+let vert;
+let horiz;
 let penbttn, erbttn, rebttn;
 let xoff, yoff;
 let erimg;
 let reimg;
-let s = 0;
+let h = 0, m = 0, s = 0;
 
 function preload(){
   penimg = loadImage("pencil.png");
@@ -40,7 +40,7 @@ function setup() {
     nums.push(new cell(i, 9));
     nums[i].n = i + 1;
     nums[i].changeble = true;
-    nums[i].col = color(206, 54, 52);
+    nums[i].col = color(100);
     nums[i].st = 4;
   }
   
@@ -51,10 +51,11 @@ function setup() {
   setInterval(timeIt, 1000);
   
   noLoop();
-  redraw();
+  //redraw();
 }
 
 function draw() {
+  if (ingame){
   imageMode(CENTER);
   image(bg, width / 2, height / 2);
   image(field, width / 2, height / 2, (width - 2 * xoff), (height - 2 * yoff) - 2 * w);
@@ -65,9 +66,11 @@ function draw() {
   for (let i in nums)
     nums[i].show();
   sudoku.show();
+  }
 }
 
 function mousePressed() {
+  if (ingame){
   penbttn.press();
   erbttn.press();
   rebttn.press();
@@ -97,20 +100,24 @@ function mousePressed() {
     }
   }
   redraw();
+  }
 }
 
 function mouseReleased() {
+  if (ingame){
   penbttn.unpress();
   erbttn.unpress();
   rebttn.unpress();
   if (game) {
     sudoku.corruption();
+    nums[curnum].highlighted = false;
   }
-  nums[curnum].highlighted = false;
   redraw();
+  }
 }
 
 function doubleClicked() {
+  if (ingame){
   if (game) {
     let i = int(mouseX / w);
     let j = int(mouseY / w) - 1;
@@ -118,9 +125,11 @@ function doubleClicked() {
       sudoku.set(i, j, undefined);
   }
   redraw();
+  }
 }
 
 function keyPressed() {
+  if (ingame){
   if (key == ' ') {
     sudoku.fill();
     start = false;
@@ -153,6 +162,7 @@ function keyPressed() {
       win();
   }
   redraw();
+  }
 }
 
 
@@ -230,7 +240,6 @@ function pencil(){
 function erase(){
    if (start){
      sudoku.unhight(curr[0], curr[1]);
-     sudoku.cell(curr[0], curr[1]).sure = 255;
      sudoku.set(curr[0], curr[1], undefined);
    }
 }
@@ -238,18 +247,23 @@ function erase(){
 function reset(){
   if (start){
     sudoku.unhight(curr[0], curr[1]);
-    for (let i = 0; i < sudoku.cells.length; i++){
-      if (sudoku.cells[i].changeble){
+    for (let i = 0; i < sudoku.cells.length; i++)
+      if (sudoku.cells[i].changeble)
         sudoku.cells[i].n = undefined;
-        sudoku.cells[i].sure = 255;
-      }
-    }
   }
 }
 
 function timeIt(){
   if (start){
     s++;
+    if (s == 60){
+      s = 0;
+      m++;
+      if (m == 60){
+        m = 0;
+        h++;
+      }
+    }
     redraw();
   }
 }
@@ -261,7 +275,6 @@ function showTime(){
   textAlign(CENTER, CENTER);
   fill(0);
   let st ="";
-  st = str(numeral(int(s / 3600)).format('00')) + " : " + str(numeral(int(s / 60)).format('00')) + " : " + str(numeral(s % 60).format('00'));
+  st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
   text(st, xoff, yoff, 3 * w, w);
 }
-
