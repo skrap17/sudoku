@@ -265,17 +265,3 @@ function showTime(){
   text(st, xoff, yoff, 3 * w, w);
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  d = dims();
-  xoff = abs(windowWidth - d[0]) * 0.5;
-  yoff = abs(windowHeight - d[1] ) * 0.5;
-  penbttn.pos(7 * w, 0);
-  erbttn.pos(8 * w, 0);
-  rebttn.pos(6 * w, 0);
-  redraw();
-}
-
-function deviceTurned() {
-  windowResized();
-}
