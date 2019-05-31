@@ -11,13 +11,43 @@
   <canvas id = "cnv"></canvas>
   <body>
      <button class="button" id="b1" onclick="startGame()">Start</button>
+    <button class="button button2" id="e" onclick="easy()">Easy</button>
+    <button class="button button3" id="m" onclick="medium()">Medium</button>
+    <button class="button button1" id="h" onclick="hard()" >Hard</button>
         <script>
       var ingame = false;
+      var K;
       function startGame(){
-        ingame = true;
         var x = document.getElementById("b1");
         x.style.display = "none";
+        var e = document.getElementById("e");
+        var m = document.getElementById("m");
+        var h = document.getElementById("h");
+        e.style.display = "inline-block";
+        m.style.display = "inline-block";
+        h.style.display = "inline-block";
+      }
+      function butt(){
+        var e = document.getElementById("e");
+        var m = document.getElementById("m");
+        var h = document.getElementById("h");
+        e.style.display = "none";
+        m.style.display = "none";
+        h.style.display = "none";
+        ingame = true;
         redraw();
+      }
+      function easy(){
+        K = 10;
+        butt();
+      }
+      function medium(){
+        K = 30;
+        butt();
+      }
+      function hard(){
+        K = 50;
+        butt();
       }
     </script>
     <script src="sketch.js"></script>
