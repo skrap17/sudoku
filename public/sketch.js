@@ -1,5 +1,4 @@
 let w = 50;
-let K = 40;
 let sudoku;
 let curr = [0, 0];
 let start = false;
@@ -17,6 +16,7 @@ let reimg;
 let h = 0,
   m = 0,
   s = 0;
+let gen = false;
 
 function preload() {
   penimg = loadImage("pencil.png");
@@ -58,6 +58,10 @@ function setup() {
 
 function draw() {
   if (ingame) {
+    if (!gen){
+      sudoku.remove(K);
+      gen = true;
+    }
     back();
     imageMode(CENTER);
     //image(bg, width / 2, height / 2);
@@ -259,7 +263,7 @@ function reset() {
 }
 
 function timeIt() {
-  if (start) {
+  if (ingame) {
     s++;
     if (s == 60) {
       s = 0;
