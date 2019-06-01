@@ -86,16 +86,16 @@ canvas {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  animation: 0.5s spin infinite linear;
+  -webkit-transform: translate(-50%, -50%);
+  -webkit-animation: 0.5s spin infinite linear;
   display: inline-block;
 }
 
 @-webkit-keyframes  spin{
   from{
-    transform: translate(-50%, -50%) rotate(0deg);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
   }
   from{
-    transform: translate(-50%, -50%) rotate(360deg);
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
   }
 }
