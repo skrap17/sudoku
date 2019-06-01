@@ -26,9 +26,13 @@ function grid() {
       //image(horiz, xoff - 2, i * 3 * w - 2 + w + yoff, width - 2 * xoff + 4, 4);
       //image(vert, i * 3 * w - 2 + xoff - of3, w - 2 + yoff, 4 + of1, height - 2 * w - 2 * yoff + 4);
       stroke(204, 56, 52);
-      strokeWeight(4);
+      let st  = 4;
+      strokeWeight(st);
       line(xoff, i * 3 * w + w + yoff, xoff + width - 2 * xoff,  i * 3 * w + w + yoff);
-      line(i * 3 * w + xoff, w + yoff,  i * 3 * w + xoff, height - 2 * w - 2 * yoff +  w + yoff);
+      if (xoff == 0 && i % 3 == 0)
+        st = 8;
+      strokeWeight(st);
+      line(i * 3 * w + xoff, w + yoff + 2,  i * 3 * w + xoff, height - 2 * w - 2 * yoff +  w + yoff - 2);
     }
   }
 
