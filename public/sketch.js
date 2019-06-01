@@ -7,16 +7,13 @@ let nums = [];
 let curnum = 0;
 let penimg;
 let bg, field;
-let vert;
-let horiz;
+// let vert;
+// let horiz;
 let penbttn, erbttn, rebttn;
 let xoff, yoff;
 let erimg;
 let reimg;
-let h = 0,
-  m = 0,
-  s = 0;
-let gen = false;
+let s = 0;
 
 function preload() {
   penimg = loadImage("pencil.png");
@@ -29,39 +26,37 @@ function preload() {
 }
 
 function setup() {
-  d = dims();
-  xoff = abs(windowWidth - d[0]) * 0.5;
-  yoff = abs(windowHeight - d[1]) * 0.5;
-  cnv = createCanvas(windowWidth, windowHeight);
-  cnv.style('display', 'block');
-  cnv.position(0, 0);
-  sudoku = new grid();
-  sudoku.fill();
+  if (ingame) {
+    d = dims();
+    xoff = abs(windowWidth - d[0]) * 0.5;
+    yoff = abs(windowHeight - d[1]) * 0.5;
+    cnv = createCanvas(windowWidth, windowHeight);
+    cnv.style('display', 'block');
+    cnv.position(0, 0);
+    sudoku = new grid();
+    sudoku.fill();
 
-  for (let i = 0; i < 9; i++) {
-    nums.push(new cell(i, 9));
-    nums[i].n = i + 1;
-    nums[i].changeble = true;
-    nums[i].col = color(204, 56, 52);
-    nums[i].st = 3;
+    for (let i = 0; i < 9; i++) {
+      nums.push(new cell(i, 9));
+      nums[i].n = i + 1;
+      nums[i].changeble = true;
+      nums[i].col = color(204, 56, 52);
+      nums[i].st = 3;
+    }
+
+    penbttn = new button(7 * w, 0, penimg, pencil);
+    erbttn = new button(8 * w, 0, erimg, erase);
+    rebttn = new button(6 * w, 0, reimg, reset);
+
+    setInterval(timeIt, 1000);
+
+    noLoop();
+    redraw();
   }
-
-  penbttn = new button(7 * w, 0, penimg, pencil);
-  erbttn = new button(8 * w, 0, erimg, erase);
-  rebttn = new button(6 * w, 0, reimg, reset);
-
-  setInterval(timeIt, 1000);
-
-  noLoop();
-  //redraw();
 }
 
 function draw() {
   if (ingame) {
-    if (!gen){
-      sudoku.remove(K);
-      gen = true;
-    }
     back();
     imageMode(CENTER);
     //image(bg, width / 2, height / 2);
@@ -255,7 +250,7 @@ function reset() {
   if (start) {
     sudoku.unhight(curr[0], curr[1]);
     for (let i = 0; i < sudoku.cells.length; i++)
-      if (sudoku.cells[i].changeble){
+      if (sudoku.cells[i].changeble) {
         sudoku.cells[i].n = undefined;
         sudoku.cells[i].sure = 255;
       }
@@ -265,14 +260,6 @@ function reset() {
 function timeIt() {
   if (ingame) {
     s++;
-    if (s == 60) {
-      s = 0;
-      m++;
-      if (m == 60) {
-        m = 0;
-        h++;
-      }
-    }
     redraw();
   }
 }
@@ -284,7 +271,7 @@ function showTime() {
   textAlign(CENTER, CENTER);
   fill(0);
   let st = "";
-  st = str(numeral(h).format('00')) + " : " + str(numeral(m).format('00')) + " : " + str(numeral(s).format('00'));
+  st = str(numeral(int(s / 3600)).format('00')) + " : " + str(numeral(int(s / 60)).format('00')) + " : " + str(numeral(s %  60).format('00'));
   text(st, xoff, yoff, 3 * w, w);
 }
 
