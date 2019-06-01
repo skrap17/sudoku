@@ -73,7 +73,7 @@ canvas {
   background-image: url("cloudy-day.png");
   background-repeat: repeat;
   z-index: 998;
-  visibility: visible;
+  display: inline-block;
 }
 
 .loader{
@@ -88,10 +88,10 @@ canvas {
   top: 50%;
   transform: translate(-50%, -50%);
   animation: 0.5s spin infinite linear;
-  visibility: visible;
+  display: inline-block;
 }
 
-@keyframes spin{
+@-webkit-keyframes  spin{
   from{
     transform: translate(-50%, -50%) rotate(0deg);
   }
