@@ -16,26 +16,19 @@ function grid() {
     strokeWeight(3);
     imageMode(CORNER);
     for (let i = 0; i <= 3; i++) {
-      // let of1 = 0, of3 = 0;
-      // if (xoff == 0){
-      //   if (i ==0)
-      //     of1 = 2;
-      //   if (i == 3)
-      //     of3 = 2;
-      // }
+      let of1 = 0, of3 = 0;
+      if (xoff == 0){
+        if (i ==0)
+          of1 = 2;
+        if (i == 3)
+          of3 = 2;
+      }
       //image(horiz, xoff - 2, i * 3 * w - 2 + w + yoff, width - 2 * xoff + 4, 4);
       //image(vert, i * 3 * w - 2 + xoff - of3, w - 2 + yoff, 4 + of1, height - 2 * w - 2 * yoff + 4);
-      let stw = 4;
-      let off = 0;
       stroke(204, 56, 52);
-      if (xoff == 0 && i % 3 == 0){
-        off = 2;
-        stw = 8;
-      }
       strokeWeight(4);
       line(xoff, i * 3 * w + w + yoff, xoff + width - 2 * xoff,  i * 3 * w + w + yoff);
-      strokeWeight(stw);
-      line(i * 3 * w + xoff, w + yoff + off,  i * 3 * w + xoff, height - 2 * w - 2 * yoff + w + yoff - off);
+      line(i * 3 * w + xoff, w + yoff,  i * 3 * w + xoff, height - 2 * w - 2 * yoff +  w + yoff);
     }
   }
 
@@ -181,10 +174,15 @@ function grid() {
     while (count > 0) {
       let i = floor(random(1) * 9);
       let j = floor(random(1) * 9);
-      if (this.cell(i, j).n != undefined) {
+      let n = this.cell(i, j).n
+      if (n != undefined) {
         this.set(i, j, undefined);
-        this.change(i, j);
-        count--;
+        if (this.solNum(0, 0, 0) == 1){
+          this.change(i, j);
+          count--;
+        }
+        else
+          this.set(i, j, n);
       }
     }
   }
@@ -248,5 +246,31 @@ function grid() {
         }
       }
     }
+  }
+  
+  this.solNum = function(i, j, count){
+    
+    if (i == 9) {
+        i = 0;
+        j = j + 1;
+        if (j == 9)
+            return 1 +count;
+    } 
+    
+    if (this.cell(i, j).n != undefined)  // skip filled cells
+        return this.solNum(i+1, j, count);
+    
+    // search for 2 solutions instead of 1
+    // break, if 2 solutions are found
+    
+    for (let val = 1; val <= 9 && count < 2; ++val) {
+        if (this.safe(i, j,val)) {
+            this.cell(i, j).n = val;
+            // add additional solutions
+            count = this.solNum(i + 1, j, count);
+        }
+    }
+    this.cell(i, j).n = undefined // reset on backtrack
+    return count;
   }
 }
