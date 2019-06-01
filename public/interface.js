@@ -5,8 +5,8 @@
       setTimeout(function() {
         var pre = document.getElementById("pre");
         var ld = document.getElementById("ld");
-        pre.style.visibility = "hidden";
-        ld.style.visibility = "hidden";
+        pre.style.display = "none";
+        ld.style.display = "none";
         var x = document.getElementById("b1");
         x.style.display = "inline-block";
       }, 500);
