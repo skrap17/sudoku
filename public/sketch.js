@@ -112,8 +112,8 @@ function mouseReleased() {
     rebttn.unpress();
     if (game) {
       sudoku.corruption();
-      nums[curnum].highlighted = false;
     }
+    nums[curnum].highlighted = false;
     redraw();
   }
 }
@@ -258,7 +258,7 @@ function reset() {
 }
 
 function timeIt() {
-  if (ingame) {
+  if (ingame && start) {
     s++;
     redraw();
   }
@@ -279,51 +279,4 @@ function back() {
   for (let x = 0; x < width; x += bg.width)
     for (let y = 0; y < height; y += bg.height)
       image(bg, x, y);
-}
-
-function touchStarted() {
-  if (ingame) {
-    penbttn.press();
-    erbttn.press();
-    rebttn.press();
-    let i = int((mouseX - xoff) / w);
-    if (mouseY <= height - w - 1 - yoff && mouseY >= w + 1 + yoff && mouseX <= width - 1 - xoff && mouseX >= 1 + xoff && game) {
-      let j = int((mouseY - yoff) / w) - 1;
-      if (sudoku.cell(i, j).changeble) {
-        start = true;
-        sudoku.cell(curr[0], curr[1]).highlighted = false;
-        sudoku.unhight(curr[0], curr[1]);
-        sudoku.cell(curr[0], curr[1]).main = 80;
-        sudoku.high(i, j);
-        sudoku.cell(i, j).main = 140;
-        sudoku.lookAtAll(i, j);
-        curr = [i, j];
-      }
-    } else if (mouseY > height - w - 1 - yoff && mouseY <= height - yoff && mouseX <= width - 1 - xoff && mouseX >= 1 + xoff && game) {
-      nums[i].highlighted = true;
-      curnum = i;
-      if (start) {
-        sudoku.unhight(curr[0], curr[1]);
-        sudoku.set(curr[0], curr[1], nums[i].n);
-        sudoku.lookAtAll(curr[0], curr[1]);
-        sudoku.corruption();
-        if (sudoku.solved())
-          win();
-      }
-    }
-    redraw();
-  }
-}
-
-function touchEnded() {
-  if (ingame) {
-    penbttn.unpress();
-    erbttn.unpress();
-    rebttn.unpress();
-    if (game) {
-      sudoku.corruption();
-      nums[curnum].highlighted = false;
-    }
-    redraw();
-  }
 }
