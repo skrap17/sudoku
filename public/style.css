@@ -25,7 +25,7 @@ canvas {
   background-color: #fafa6e; 
   color: #cc3834; 
   border: 4px solid #cc3834;
-  z-index: 10;
+  z-index: 12;
   width: 50%;
   height: 15%;
   text-align: center;
@@ -59,11 +59,6 @@ canvas {
   transform: translate(-50%, -200%);
 }
 
-.button3{
-  display: none;
-}
-
-
 .preloader{
   position: fixed;
   left: 0;
@@ -72,12 +67,12 @@ canvas {
   height: 100%;
   background-image: url("cloudy-day.png");
   background-repeat: repeat;
-  z-index: 998;
+  z-index: 11;
   display: inline-block;
 }
 
 .loader{
-  z-index: 999;
+  z-index: 12;
   width: 40px;
   height: 40px;
   border: 10px solid red;
@@ -86,16 +81,16 @@ canvas {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -webkit-animation: 0.5s spin infinite linear;
+  transform: translate(-50%, -50%);
+  animation: 0.5s spin infinite linear;
   display: inline-block;
 }
 
-@-webkit-keyframes  spin{
+@-webkit-keyframes spin{
   from{
-    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   from{
-    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
