@@ -6,7 +6,7 @@ function grid() {
       this.cells[index(i, j)] = new cell(i, j);
     }
   }
-
+  
 
 
   this.show = function() {
@@ -276,5 +276,47 @@ function grid() {
     }
     this.cell(i, j).n = undefined // reset on backtrack
     return count;
+  }
+  
+  this.rsc = function(x, y){
+    for (let i = 0; i < 9; i++){
+      this.cell(i, y).highlighted = true;
+      this.cell(x, i).highlighted = true;
+      this.cell(i, y).main = 80;
+      this.cell(x, i).main = 80;
+    }
+    
+    let i_ = x - x % 3;
+    let j_ = y - y % 3;
+    
+    for (let i = i_; i < i_ + 3; i++){
+      for (let j = j_; j < j_ + 3; j++){
+        this.cell(i, j).highlighted = true;
+        this.cell(i, j).main = 80;
+      }
+    }
+    
+   this.cell(x, y).main = 140;
+  }
+  
+  this.anti_rsc = function(x, y){
+    for (let i = 0; i < 9; i++){
+      this.cell(i, y).highlighted = false;
+      this.cell(x, i).highlighted = false;
+      this.cell(i, y).main = 140;
+      this.cell(x, i).main = 140;
+    }
+    
+    let i_ = x - x % 3;
+    let j_ = y - y % 3;
+    
+    for (let i = i_; i < i_ + 3; i++){
+      for (let j = j_; j < j_ + 3; j++){
+        this.cell(i, j).highlighted = false;
+        this.cell(i, j).main = 140;
+      }
+    }
+    
+   //this.cell(x, y).main = 140;
   }
 }
