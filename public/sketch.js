@@ -208,6 +208,10 @@ function win() {
         sudoku.cell(i, j).sure = 255;
       }
     }
+  var xmlhttp = new XMLHttpRequest();
+  var url = "https://YOUR_URL_HERE/highscore/" + distance  + "?id=" + playerid;
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
 }
 
 
