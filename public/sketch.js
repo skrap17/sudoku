@@ -210,6 +210,8 @@ function win() {
     }
   var xmlhttp = new XMLHttpRequest();
   var url = "https://YOUR_URL_HERE/highscore/" + s + "?id=" + playerid;
+  console.log(xmlhttp);
+  console.log(url);
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 }
