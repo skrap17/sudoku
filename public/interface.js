@@ -1,3 +1,7 @@
+var url = new URL(location.href);
+
+var playerid = url.searchParams.get("id");
+
 var K;
 
 document.body.onload = function() {
