@@ -86,6 +86,19 @@ canvas {
   display: inline-block;
 }
 
+.test{
+  z-index: 12;
+  width: 40px;
+  height: 40px;
+  border: 10px solid red;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border-top-color: white;
+  animation: 0.5s spin infinite linear;
+  display: inline-block;
+}
+
+
 @-webkit-keyframes spin{
   from{
     transform: translate(-50%, -50%) rotate(0deg);
