@@ -16,7 +16,7 @@ console.log(port);
 
 var http = require("http");
 setInterval(function() {
-    http.get("http://telegramsudoku.herokuapp.com");
+    http.get("http://telegramsudoku22.herokuapp.com");
 }, 500000); // every 5 minutes (300000)
 
 const gameName = "sudoku";
